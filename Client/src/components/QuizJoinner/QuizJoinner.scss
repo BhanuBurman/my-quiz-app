@@ -1,0 +1,30 @@
+.Join_Section{
+    // border: 2px solid red;
+    width: 30%;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 7rem;
+    margin: 1rem;
+    background-color: rgba(75, 75, 75, 0.573);
+    color: white;
+    font-size: x-large;
+    input{
+        font-size: x-large;
+        width: 100%;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        margin-top: 6px;
+    }
+    button{
+        width: 100%;
+        padding: 1rem;
+        background-color: rgb(3, 207, 3);
+        color: white;
+        border: none;
+        font-size: large;
+        cursor: pointer;
+    }
+}

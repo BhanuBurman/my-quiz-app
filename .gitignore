@@ -1,0 +1,63 @@
+# -----------------------------
+# Client (Frontend) Files
+# -----------------------------
+
+Client/node_modules/
+Client/.pnp/
+Client/.pnp.js
+
+# Testing
+Client/coverage/
+
+# Production Build
+Client/build/
+
+# Misc
+Client/.DS_Store
+Client/.env*
+Client/npm-debug.log*
+Client/yarn-debug.log*
+
+# -----------------------------
+# Server (Backend) Files
+# -----------------------------
+
+Server/HELP.md
+Server/target/
+Server/.mvn/wrapper/maven-wrapper.jar
+!Server/**/src/main/**/target/
+!Server/**/src/test/**/target/
+
+# Build Directories
+Server/build/
+!Server/**/src/main/**/build/
+!Server/**/src/test/**/build/
+
+# -----------------------------
+# IDE and Editor Specific Files
+# -----------------------------
+
+# Spring Tool Suite (STS)
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans/
+.sts4-cache/
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/

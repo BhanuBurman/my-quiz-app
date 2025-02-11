@@ -1,0 +1,160 @@
+.Quiz_Creator_Section{
+    background-color: white;
+    width: 100%;
+    padding: 19px;
+    margin-top: 23px;
+    border-radius: 13px;
+    box-shadow: 4px 4px 10px 3px rgb(87, 87, 87);
+    input{
+        padding: 8px;
+        margin: 4px;
+    }
+    .Quiz_Difficulty{
+        display: inline;
+        select{
+            font-size: medium;
+            // width: 50%;
+            height: 2.5rem;
+            border-radius: 5px;
+            // border: 1px slolid rgb(246, 241, 241);
+            border-bottom: 3px solid black;
+        }
+    }
+    .Quiz_Title{
+        display: flex;
+        justify-content: space-between;
+        input{
+            font-size: x-large;
+            width:40%;
+            // min-width: 19rem;
+            // max-width: 29rem;
+            border: none;
+            border-bottom: 3px solid black;
+            
+        }
+        button{
+            font-size: larger;
+            width: 8rem;
+            font-weight: bold;
+            padding: 0px 5px;
+            border-radius: 5px;
+            border: none;
+            background-color: rgb(8, 162, 8);
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            &:hover{
+                transform: scale(1.1);
+            }
+        }
+    }
+    .Quiz_Category{
+        input{
+            font-size: medium;
+            width: 11rem;
+            border: none;
+            border-bottom: 3px solid black;
+        }
+    }
+
+    .Quiz_Question{
+        input{
+            font-size: medium;
+            width: 50%;
+            border-radius: 5px;
+            // border: 1px slolid rgb(246, 241, 241);
+            border-bottom: 3px solid black;
+        }
+    }
+    .Quiz_Options{
+        input{
+            padding: 8px;
+            margin: 4px;
+            border-radius: 5px;
+            // border: none;
+            border: 1px solid black;
+        }
+    }
+    .Quiz_Answer{
+        select{
+            padding: 8px;
+            margin: 4px;
+            border-radius: 3px;
+            border-bottom: 3px solid black;
+            width: 15rem;
+            font-size: medium;
+        }
+    }
+
+}
+
+.Add_Question_Button{
+    button{
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 5px;
+        border: none;
+        background-color:rgb(8, 162, 8);
+        color: white;
+        cursor: pointer;
+        font-size: medium;
+        transition: all 0.2s ease-in-out;
+        &:hover{
+            transform: scale(1.02);
+        }
+    }
+}
+
+.Display_Quiz{
+    height: 15rem;
+    border: 2px solid rgb(145, 144, 144);
+    overflow-y: scroll;
+    h1{
+        margin-left: 15px;
+    }
+    .Question_Card{
+        background-color: rgba(4, 240, 4, 0.327);
+        display: flex;
+        border: 2px solid rgb(184, 182, 182);
+        margin: 12px;
+        padding: 9px;
+        border-radius: 5px;
+        box-shadow: 2px 2px 6px 0.1px rgb(135, 134, 134);
+        .quiz_card_options{
+            display: flex;
+            gap: 1rem;
+        }
+        .display_quiz_right_section{
+            width: 2rem;
+            button{
+                padding: 5px 5px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                background-color: red;
+                color: white;
+                font-size: large;
+            }
+        }
+        .display_quiz_left_section{
+            width: 100%;
+            .quiz_card_question_section{
+                display: flex;
+                .quiz_card_question_section_question{
+                    font-size: x-large;
+                    font-weight: bold;
+                }
+                .quiz_card_question_section_difficulty{
+                    // background-color: rgb(243, 176, 6);
+                    padding: 5px;
+                    border-radius: 12px;
+                    margin-left: 7px;
+                    color: white;
+                    font-size: small;
+                    box-sizing: border-box;
+                    display: inline;
+                }
+            }
+        }
+    }
+}
