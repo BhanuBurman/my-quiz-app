@@ -1,70 +1,116 @@
-# Getting Started with Create React App
+# Quiz App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a full-stack quiz application consisting of a React frontend and a Spring Boot backend.
 
-## Available Scripts
+## Prerequisites
 
-In the project directory, you can run:
+Ensure that you have the following installed on your system:
 
-### `npm start`
+- [Node.js](https://nodejs.org/) (for running the frontend)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
+- [Java 17+](https://www.oracle.com/java/technologies/javase-downloads.html) (for running the backend)
+- [Apache Maven](https://maven.apache.org/) (for building the backend)
+- [MySQL](https://www.mysql.com/) (or any preferred database for the backend)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Backend Setup (Spring Boot)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. Configure the Database
 
-### `npm test`
+Go to `src/main/resources/application.properties` and update the database configuration with your details:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/your_database_name
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+```
 
-### `npm run build`
+### 2. Build and Run the Backend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Navigate to the `Server` directory:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```sh
+cd Server
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Verify that Java and Maven are installed:
 
-### `npm run eject`
+```sh
+java --version
+mvn -v
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+If the above commands return version numbers, proceed with building the project:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```sh
+mvn clean package
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+After a successful build, start the server using:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```sh
+java -jar target/quizApp-0.0.1-SNAPSHOT.jar
+```
 
-## Learn More
+The backend should now be running at `http://localhost:8080`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Frontend Setup (React)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 1. Install Dependencies
 
-### Code Splitting
+Navigate to the `Client` directory:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```sh
+cd Client
+```
 
-### Analyzing the Bundle Size
+Install all required dependencies:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```sh
+npm install
+```
 
-### Making a Progressive Web App
+### 2. Run the Frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Start the React development server:
 
-### Advanced Configuration
+```sh
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+This will launch the application at `http://localhost:3000`.
 
-### Deployment
+## Running the Full Application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+1. Start the backend by following the steps in the "Backend Setup" section.
+2. Start the frontend by following the steps in the "Frontend Setup" section.
+3. Open `http://localhost:3000` in your browser to use the quiz application.
 
-### `npm run build` fails to minify
+## API Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `GET /api/quizzes` - Fetch all quizzes
+- `POST /api/quizzes` - Create a new quiz
+- `GET /api/quizzes/{id}` - Get a quiz by ID
+- `POST /api/quizzes/submit` - Submit quiz answers
+
+## Notes
+
+- Ensure that the backend is running before accessing the frontend.
+- The backend API is configured to allow cross-origin requests from `http://localhost:3000` using `@CrossOrigin`.
+- Modify `application.properties` to match your database credentials.
+
+## Deployment
+
+For production deployment:
+
+1. Build the frontend using:
+   ```sh
+   npm run build
+   ```
+   This will create a `build` folder inside `Client`.
+2. Configure the backend to serve static files from the `build` folder.
+3. Deploy the backend on a server (e.g., AWS, Heroku, DigitalOcean).
+
+## License
+
+This project is licensed under the MIT License.
+
