@@ -159,3 +159,9 @@ html, body {
     border-radius: 15px;
     transition: width 0.5s ease-in-out;
 }
+
+.selected{
+    background-color: green;
+    color: white;
+    // border: 12px solid black;
+}
