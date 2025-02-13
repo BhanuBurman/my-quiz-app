@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./QuizCreator.scss";
 import axios from "axios";
@@ -35,11 +35,25 @@ const QuizCreator = () => {
 
       console.log(response.data);
       setIsQuizUploaded(true);
+
+      // Reset the form only afetr successful upload
+      setQuestion("");
+      setAnswer("");
+      setTitle("");
+      setOptions(["", "", "", ""]);
+      setQuestionData([]);
+      setCategory("");
     } catch (error) {
       console.error("Error Creating Quiz:", error);
       setIsQuizUploaded(false);
     }
   };
+
+  useEffect(() => {
+    if (quizCode) {
+      uploadQuizQuestions();
+    }
+  }, [quizCode]);
 
   const handleCreateQuiz = () => {
     if (title === "" || questionData.length === 0) {
@@ -55,14 +69,6 @@ const QuizCreator = () => {
     // TODO: Send the quiz data to the server
     setQuizCode(quizCode);
     setCreateButtonClicked(true); //
-    uploadQuizQuestions();
-    // Reset the form
-    setQuestion("");
-    setAnswer("");
-    setTitle("");
-    setOptions(["", "", "", ""]);
-    setQuestionData([]);
-    setCategory("");
   };
   const handleAddQuestion = () => {
     if (question === "" || answer === "" || options.includes("")) {
@@ -129,15 +135,15 @@ const QuizCreator = () => {
               onChange={(e) => setQuestion(e.target.value)}
             />
             <div className="Quiz_Difficulty">
-            <select
-              value={difficultyLevel}
-              onChange={(e) => setDifficultyLevel(e.target.value)}
-            >
-              <option value="EASY">EASY</option>
-              <option value="MEDIUM">MEDIUM</option>
-              <option value="HARD">HARD</option>
-            </select>
-          </div>
+              <select
+                value={difficultyLevel}
+                onChange={(e) => setDifficultyLevel(e.target.value)}
+              >
+                <option value="EASY">EASY</option>
+                <option value="MEDIUM">MEDIUM</option>
+                <option value="HARD">HARD</option>
+              </select>
+            </div>
           </div>
           <div className="Quiz_Options">
             {options.map((option, index) => (
@@ -165,7 +171,7 @@ const QuizCreator = () => {
                 ))}
             </select>
           </div>
-          
+
           <div className="Add_Question_Button">
             <button onClick={handleAddQuestion}>Add Question</button>
           </div>
@@ -177,23 +183,22 @@ const QuizCreator = () => {
             <div key={index} className="Question_Card">
               <div className="display_quiz_left_section">
                 <div className="quiz_card_question_section">
-                <p className="quiz_card_question_section_question">
-                  {question.question}
-                  <p className="quiz_card_question_section_difficulty"
-                    style={
-                    {
+                  <p className="quiz_card_question_section_question">
+                    {question.question}
+                    <p
+                      className="quiz_card_question_section_difficulty"
+                      style={{
                         backgroundColor:
                           question.difficultyLevel === "EASY"
-                           ? "#008000"
+                            ? "#008000"
                             : question.difficultyLevel === "HARD"
-                           ? "#FF0000"
-                            : "rgb(236 208 40)"
-                      }
-                    }  
-                  >{question.difficultyLevel}</p>  
-                </p>
-                
-
+                            ? "#FF0000"
+                            : "rgb(236 208 40)",
+                      }}
+                    >
+                      {question.difficultyLevel}
+                    </p>
+                  </p>
                 </div>
                 <div className="quiz_card_options">
                   <p> A: {question.optionA}</p>
@@ -205,13 +210,12 @@ const QuizCreator = () => {
               </div>
               <div className="display_quiz_right_section">
                 <button onClick={() => handleDeleteQuestion(index)}>
-                  <RiDeleteBin5Fill/>
+                  <RiDeleteBin5Fill />
                 </button>
               </div>
             </div>
           ))}
         </div>
-        
       </div>
       {createButtonClicked && (
         <div className="Quiz_Upload_Status_Info">
