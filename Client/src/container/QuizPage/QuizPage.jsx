@@ -43,6 +43,17 @@ const QuizPage = () => {
       setQuizQuestionsList(response.data.quizQuestionsList);
       console.log(JSON.stringify(response.data.quizQuestionsList));
       console.log(typeof response.data.quizQuestionsList);
+      response.data.quizQuestionsList.map((item, index) => {
+        setAttendedQuestionList((prevState) => [
+         ...prevState,
+          {
+            id: item.id,
+            question: item.question,
+            answer: item.answer,
+            selectedOption: "",
+          },
+        ]);
+      })
       setLoading(false); // Mark as loaded
       setTotalCount(response.data.quizQuestionsList.length); // Set the total count from the fetched data
     } catch (error) {
@@ -65,6 +76,13 @@ const QuizPage = () => {
     fetchData(); // Call the function
   }, []); // Empty dependency array ensures it runs only once on mount
 
+
+  useEffect(() =>{
+    console.log("Answered Option:" + JSON.stringify(attendedQuestionList));
+    console.log("Selected Option:" + selectedOption);
+    console.log("Current Count:" + currentCount);
+
+  }, [attendedQuestionList, selectedOption]);
   // useEffect(() =>{
   //   fetchTotalCount(); //
   // }, []); // Empty dependency array ensures it runs only once on
@@ -74,14 +92,7 @@ const QuizPage = () => {
   }
 
   const nextQuestion = () => {
-    const selectedAnswerObj = {
-      questionId: quizQuestionsList.at(currentCount).id,
-      actualAanswer: quizQuestionsList.at(currentCount).answer,
-      selectedAnswer: selectedOption
-    }
-    setAttendedQuestionList([...attendedQuestionList, selectedAnswerObj]);
-    setSelectedOption("");
-    console.log("Answered Option:" + JSON.stringify(attendedQuestionList));
+
     if (currentCount === totalCount - 1) {
       // alert("Congratulations! You have completed the quiz.");
       // reset the quiz number and current count
@@ -89,19 +100,38 @@ const QuizPage = () => {
       // setQuizNumber(1);
       setCurrentCount(0);
     } else {
-      // setQuizNumber(prevState => prevState + 1); // Increment the quiz number by 1
-      setCurrentCount((prevState) => prevState + 1); // Increment the current
+          // Move to the previous question first
+    setCurrentCount(nextCount => {
+      const newCount = nextCount + 1;
+      
+      // Check if we have an answer stored for the previous question
+      const selectedAnswer = attendedQuestionList[newCount]?.selectedAnswer || "";
+  
+      // Update selected option
+      setSelectedOption(selectedAnswer);
+  
+      return newCount;
+    });
     }
   };
   const prevQuestion = () => {
     if (currentCount === 0) {
       alert("This is the first question.");
-      // setQuizNumber(1);
-      setCurrentCount(0);
-    } else {
-      // setQuizNumber(prevState => prevState - 1); // Increment the quiz number by 1
-      setCurrentCount((prevState) => prevState - 1); // Increment the current
+      return;
     }
+  
+    // Move to the previous question first
+    setCurrentCount(prevCount => {
+      const newCount = prevCount - 1;
+      
+      // Check if we have an answer stored for the previous question
+      const prevSelectedAnswer = attendedQuestionList[newCount]?.selectedAnswer || "";
+  
+      // Update selected option
+      setSelectedOption(prevSelectedAnswer);
+  
+      return newCount;
+    });
   };
 
   const quitQuiz = () => {
@@ -116,6 +146,7 @@ const QuizPage = () => {
 
   const handleSelectOption = (pickedOption) => {
       setSelectedOption(pickedOption);
+      attendedQuestionList.at(currentCount).selectedAnswer = pickedOption;
   };
 
   return (
@@ -138,7 +169,7 @@ const QuizPage = () => {
               const pickedOption = quizQuestionsList.at(currentCount)["option"+label];
               return(
                <p 
-               id={`key-${index+1}`} 
+               id={`key-"+${index+1}`} 
                onClick={() => handleSelectOption(pickedOption)}
                className={selectedOption === pickedOption ? "selected" :""}
                >
